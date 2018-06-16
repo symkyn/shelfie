@@ -56,8 +56,9 @@ app.post('/api/product', (req, res, next) => {
     console.log(newProduct);
 })
 
-app.delete('/api/delete:id', (req, res, next) => {
+app.delete('/api/delete/:id', (req, res, next) => {
     const { id } = req.params;
+    console.log(id);
     req.db.Iventory.destroy(+id)
         .then(product => res.status(200).send(product))
         .catch(err => {

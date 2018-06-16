@@ -40,6 +40,7 @@ class App extends Component {
             />
           <Form
               className='form-display'
+              componentRemount={() => this.componentWillMount()}
             />
         </span>
       </div>

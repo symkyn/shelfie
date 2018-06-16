@@ -17,7 +17,8 @@ class Form extends Component {
         return(
             <div>
                 
-                <form onSubmit={(e, imageurl, name, price, reload) => this.handleSubmit(e, newProduct, reload)}>
+                <form onSubmit={(e, imageurl, name, price, componentRemount) => 
+                        this.handleSubmit(e, newProduct, componentRemount)}>
                     <p>Image URL:</p>
                     <input 
                             value={this.state.imageurl}
@@ -63,18 +64,19 @@ class Form extends Component {
             price: 0
         })
     }
-    handleSubmit(e, newProduct, reload) {
+    handleSubmit(e, newProduct, componentRemount) {
         e.preventDefault();
         console.log(newProduct);
         axios.post('http://localhost:4002/api/product', newProduct)
             .then(result => {
                 console.log(result.data)
-                reload;
+                
                 this.setState({
                     imageurl: '',
                     name: '',
                     price: 0
                 })
+                componentRemount();
             })
             .catch(err => console.warn(err))
         }

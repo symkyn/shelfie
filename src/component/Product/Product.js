@@ -1,6 +1,8 @@
 import React from 'react';
 
 function Product(props) {
+    const {id} = props.product.id;
+    console.log(props.product.id);
     return(
         <div className='product-summary'>
             <span>
@@ -11,7 +13,7 @@ function Product(props) {
             </span>
             <br />
             <button>edit</button>
-            <button>delete</button>
+            <button onClick={(e) => {e.preventDefault(); props.deleteProduct(props.product.id)}}>delete</button>
         </div>
     )
 }

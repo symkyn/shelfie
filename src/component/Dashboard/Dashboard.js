@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Product from '../Product/Product';
+import axios from 'axios';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -8,7 +9,11 @@ class Dashboard extends Component {
     }
 
     render() {
-        const inventorySummary = this.props.inventory.map((c, i) => (<Product key={`product-${i}`} product={c} />))
+        const inventorySummary = this.props.inventory.map((c, i) => 
+            (<Product 
+                    deleteProduct = {(id) => {this.deleteProduct(id)}}
+                    key={`product-${i}`} 
+                    product={c} />))
 
         return (
         <div>
@@ -17,6 +22,13 @@ class Dashboard extends Component {
         </div>
         )
     }
+    
+    deleteProduct(id) { 
+        
+        axios.delete(`http://localhost:4002/api/delete/${id}`)
+            .then(() => console.log('reload the page'))
+            .catch(err => console.warn(err))
+    } 
 
 }
 
