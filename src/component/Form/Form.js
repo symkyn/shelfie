@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Form extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state={
-            imageURL: '',
-            productName: '',
+            imageurl: '',
+            name: '',
             price: 0
         }
     }
     render() {
+        let newProduct = this.state
+        let reload = this.props.reload
         return(
             <div>
-                <form>
+                
+                <form onSubmit={(e, imageurl, name, price, reload) => this.handleSubmit(e, newProduct, reload)}>
                     <p>Image URL:</p>
                     <input 
-                            value={this.state.imageURL}
+                            value={this.state.imageurl}
                             onChange={(e) => this.handleURLChange(e)} 
                         />
                     <p>Product Name:</p>
@@ -39,12 +43,12 @@ class Form extends Component {
 
     handleURLChange(e) {
         this.setState({
-            imageURL: e.target.value
+            imageurl: e.target.value
         })
     }
     handlePNChange(e) {
         this.setState({
-            productName: e.target.value
+            name: e.target.value
         })
     }
     handlePriceChange(e) {
@@ -54,11 +58,26 @@ class Form extends Component {
     }
     handleCancel() {
         this.setState({
-            imageURL: '',
-            productName: '',
+            imageurl: '',
+            name: '',
             price: 0
         })
     }
+    handleSubmit(e, newProduct, reload) {
+        e.preventDefault();
+        console.log(newProduct);
+        axios.post('http://localhost:4002/api/product', newProduct)
+            .then(result => {
+                console.log(result.data)
+                reload;
+                this.setState({
+                    imageurl: '',
+                    name: '',
+                    price: 0
+                })
+            })
+            .catch(err => console.warn(err))
+        }
 }
 
 export default Form;

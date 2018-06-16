@@ -37,10 +37,34 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/inventory', (req, res, next) => {
-    const whatToSend = 'it worked';
-
-    res.status(200).send(whatToSend);
+    req.db.get()
+        .then(result => {
+            res.status(200).send(result);
+        })
+        .catch(err => console.warn(err))
+        
 });
+
+app.post('/api/product', (req, res, next) => {
+    const newProduct = req.body;
+    req.db.Iventory.insert(newProduct)
+        .then(product => res.status(200).send(product))
+        .catch(err => {
+            console.warn(err); 
+            next({message: 'internal server error' })
+        })
+    console.log(newProduct);
+})
+
+app.delete('/api/delete:id', (req, res, next) => {
+    const { id } = req.params;
+    req.db.Iventory.destroy(+id)
+        .then(product => res.status(200).send(product))
+        .catch(err => {
+            console.warn(err);
+            next({message: 'internal server error'})
+        })
+})
 // full CRUD goes here
 
 app.use((err, req, res, next) => {

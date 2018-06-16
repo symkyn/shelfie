@@ -1,1 +1,1 @@
-SELECT * FROM "Games"
+select * from "Iventory"
