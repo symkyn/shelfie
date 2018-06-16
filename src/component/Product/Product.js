@@ -1,9 +1,14 @@
 import React from 'react';
 
-function Product() {
+function Product(props) {
     return(
         <div>
-            This the the Product Component
+            Product:
+            <img src={props.product.imageURL} />
+            {props.product.name}
+            {props.product.price}
+            
+            
         </div>
     )
 }

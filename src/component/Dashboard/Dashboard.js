@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import Product from '../Product/Product';
 
 class Dashboard extends Component {
+    constructor(props) {
+        super(props)
+
+    }
+
     render() {
+        const inventorySummary = this.props.inventory.map((c, i) => (<Product key={`product-${i}`} product={c} />))
+
         return (
         <div>
-            This is the Dashboard Component
-            <Product />
+            
+            {inventorySummary}
         </div>
         )
     }
