@@ -12,7 +12,7 @@ function Product(props) {
             {props.product.price}
             </span>
             <br />
-            <button>edit</button>
+            <button onClick={(e) => {e.preventDefault(); props.updateSelection(props.product.id)}}>edit</button>
             <button onClick={(e) => {e.preventDefault(); props.deleteProduct(props.product.id)}}>delete</button>
         </div>
     )

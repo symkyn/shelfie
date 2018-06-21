@@ -12,6 +12,7 @@ class Dashboard extends Component {
         const inventorySummary = this.props.inventory.map((c, i) => 
             (<Product 
                     deleteProduct = {(id) => {this.deleteProduct(id)}}
+                    updateSelection={(id) => {this.props.updateSelection(id)}}
                     key={`product-${i}`} 
                     product={c} />))
 
