@@ -2,7 +2,7 @@ import React from 'react';
 
 function Product(props) {
     const {id} = props.product.id;
-    console.log(props.product.id);
+    
     return(
         <div className='product-summary'>
             <span>

@@ -11,6 +11,7 @@ class App extends Component {
     super()
 
     this.state={
+        inventoryID: 0,
         inventory: [],
         selectedID: 0
     //   inventory: [{name: 'Brass', price: 40.45, imageURL: 'https://cf.geekdo-images.com/small/img/bY3T4SYX6lAhtfkUGJkC1laqnVw=/fit-in/200x150/pic3469216.jpg'},
@@ -39,10 +40,18 @@ class App extends Component {
       .catch(err => console.warn(err))
 }
   updateSelection(id) {
-    console.log(id);
     this.setState({
       selectedID: id
     })
+    const inventoryList = this.state.inventory;
+    const listLength = this.state.inventory.length;
+    for(var index = 0; index < listLength; index++){
+      if(id == inventoryList[index].id){
+        this.setState({
+          inventoryID: index
+        })
+      }
+    }
   }
   
   render() {
@@ -61,7 +70,7 @@ class App extends Component {
               className='form-display'
               reload={() => this.reload()}
               id={this.state.selectedID}
-              selectedProduct={this.state.inventory[this.state.selectedID]}
+              selectedProduct={this.state.inventory[this.state.inventoryID]}
             />
         </span>
       </div>

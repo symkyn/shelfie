@@ -14,8 +14,10 @@ class Form extends Component {
         }
     }
 
-    componentDidUpdate(prevState) {
-        if(prevState.currentID != this.props.currentID){
+    componentDidUpdate(prevProps, prevState) {
+        console.log('Before Update')
+        if(prevProps.id != this.props.id){
+            console.log(this.props.selectedProduct)
             this.setState({
                 imageurl: this.props.selectedProduct.imageurl,
                 name: this.props.selectedProduct.name,
@@ -32,7 +34,7 @@ class Form extends Component {
         return(
             <div>
                 { (!this.state.editing) &&
-                <form onSubmit={(e, imageurl, name, price, componentRemount) => 
+                <form onSubmit={(e, imageurl, name, price) => 
                         this.handleSubmit(e, newProduct, this.props.reload())}>
                     <p>Image URL:</p>
                     <input 
@@ -41,7 +43,7 @@ class Form extends Component {
                         />
                     <p>Product Name:</p>
                     <input 
-                            value={this.state.productName}
+                            value={this.state.name}
                             onChange={(e) => this.handlePNChange(e)} 
                         />
                     <p>Price:</p>
@@ -53,9 +55,10 @@ class Form extends Component {
                     <button>Add Inventory</button>
                 </form>
                 }
+
                 { (this.state.editing) &&
-                <form onSubmit={(e, imageurl, name, price, componentRemount) => 
-                        this.handleUpdate(e, newProduct, this.props.componentRemount())}>
+                <form onSubmit={(e, imageurl, name, price) => 
+                        this.handleUpdate(e, newProduct, this.props.reload())}>
                     <p>Image URL:</p>
                     <input 
                             value={this.state.imageurl}
@@ -63,7 +66,7 @@ class Form extends Component {
                         />
                     <p>Product Name:</p>
                     <input 
-                            value={this.state.productName}
+                            value={this.state.name}
                             onChange={(e) => this.handlePNChange(e)} 
                         />
                     <p>Price:</p>
@@ -123,7 +126,7 @@ class Form extends Component {
         handleUpdate(e, newProduct, reload) {
             e.preventDefault();
             console.log(newProduct);
-            axios.patch('http://localhost:4002/api/update/:id', newProduct)
+            axios.patch(`http://localhost:4002/api/update/${this.props.id}`, newProduct)
                 
                 .then(result => {
                     console.log(result.data)

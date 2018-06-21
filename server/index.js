@@ -66,12 +66,12 @@ app.delete('/api/delete/:id', (req, res, next) => {
         })
 })
 
-app.patch('/api/delete/:id', (req, res, next) => {
+app.patch('/api/update/:id', (req, res, next) => {
     const { id } = req.params;
     const editProduct = req.body;
     req.db.Iventory
         .update(+id, editProduct)
-        .then(product => res.sent(product))
+        .then(product => res.status(200).send(product))
         .catch(err => {
             console.warn('error with the db', err);
             next({message: 'internal server error'})
