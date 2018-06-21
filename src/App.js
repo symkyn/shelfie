@@ -53,6 +53,7 @@ class App extends Component {
         <span className='parallel-display'>
           <Dashboard 
               className='dashboard-display'
+              reload={() => this.reload()}
               inventory={this.state.inventory}
               updateSelection={(id) => this.updateSelection(id)} 
             />

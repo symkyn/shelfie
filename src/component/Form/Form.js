@@ -120,19 +120,22 @@ class Form extends Component {
             .catch(err => console.warn(err))
         }
 
-        handleUpdate(e, newProduct, componentRemount) {
+        handleUpdate(e, newProduct, reload) {
             e.preventDefault();
             console.log(newProduct);
-            axios.put('http://localhost:4002/api/update/:id', newProduct)
+            axios.patch('http://localhost:4002/api/update/:id', newProduct)
+                
                 .then(result => {
                     console.log(result.data)
                     
                     this.setState({
                         imageurl: '',
                         name: '',
-                        price: 0
+                        price: 0,
+                        currentID: null,
+                        editing: false
                     })
-                    componentRemount();
+                    this.props.reload();
                 })
                 .catch(err => console.warn(err))
             }

@@ -58,11 +58,22 @@ app.post('/api/product', (req, res, next) => {
 
 app.delete('/api/delete/:id', (req, res, next) => {
     const { id } = req.params;
-    console.log(id);
     req.db.Iventory.destroy(+id)
         .then(product => res.status(200).send(product))
         .catch(err => {
             console.warn(err);
+            next({message: 'internal server error'})
+        })
+})
+
+app.patch('/api/delete/:id', (req, res, next) => {
+    const { id } = req.params;
+    const editProduct = req.body;
+    req.db.Iventory
+        .update(+id, editProduct)
+        .then(product => res.sent(product))
+        .catch(err => {
+            console.warn('error with the db', err);
             next({message: 'internal server error'})
         })
 })

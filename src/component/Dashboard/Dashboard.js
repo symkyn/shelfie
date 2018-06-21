@@ -27,7 +27,7 @@ class Dashboard extends Component {
     deleteProduct(id) { 
         
         axios.delete(`http://localhost:4002/api/delete/${id}`)
-            .then(() => console.log('reload the page'))
+            .then(() => this.props.reload())
             .catch(err => console.warn(err))
     } 
 
