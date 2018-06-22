@@ -48,7 +48,7 @@ app.get('/api/inventory', (req, res, next) => {
 app.post('/api/product', (req, res, next) => {
     const newProduct = req.body;
     req.db.Iventory.insert(newProduct)
-        .then(product => res.status(200).send(product))
+        .then(product => res.status(201).send(product))
         .catch(err => {
             console.warn(err); 
             next({message: 'internal server error' })
@@ -71,7 +71,7 @@ app.patch('/api/update/:id', (req, res, next) => {
     const editProduct = req.body;
     req.db.Iventory
         .update(+id, editProduct)
-        .then(product => res.status(200).send(product))
+        .then(product => res.status(202).send(product))
         .catch(err => {
             console.warn('error with the db', err);
             next({message: 'internal server error'})
