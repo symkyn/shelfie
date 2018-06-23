@@ -16,18 +16,34 @@ class Form extends Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        console.log('Before Update')
-        if(prevProps.id != this.props.id){
-            console.log(this.props.selectedProduct)
+componentWillMount(){
+   if(this.props.match.params.id){
+        axios.get(`http://localhost:4002/api/edit/${this.props.match.params.id}`)
+        .then(response => {
             this.setState({
-                imageurl: this.props.selectedProduct.imageurl,
-                name: this.props.selectedProduct.name,
-                price: this.props.selectedProduct.price,
-                editing: true
+                imageurl: response.data.imageurl,
+                name: response.data.name,
+                price: response.data.price,
+                editing:true
             })
-        }
+        })
+    } else {
+        this.setState({
+            editing:false
+        })
     }
+}
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     if(this.props.match.params.id){
+    //         this.setState({
+    //             imageurl: '',
+    //             name: '',
+    //             price: 0,
+    //             editing: false
+    //         })
+    //     }
+    // }
 
     render() {
         let {imageurl, name, price} = this.state;
@@ -66,7 +82,7 @@ class Form extends Component {
 
                 { (this.state.editing) &&
                 <form onSubmit={(e, imageurl, name, price) => 
-                        this.handleUpdate(e, newProduct, this.props.reload())}>
+                        this.handleUpdate(e, newProduct)}>
                     <p>Image URL:</p>
                     <input 
                             value={this.state.imageurl}
@@ -91,6 +107,7 @@ class Form extends Component {
                         onClick={() => this.handleCancel()}>
                         Cancel
                 </button>
+                
             </div>
         )
     }
@@ -135,10 +152,10 @@ class Form extends Component {
             .catch(err => console.warn(err))
         }
 
-        handleUpdate(e, newProduct, reload) {
+        handleUpdate(e, newProduct) {
             e.preventDefault();
             console.log(newProduct);
-            axios.patch(`http://localhost:4002/api/update/${this.props.id}`, newProduct)
+            axios.patch(`http://localhost:4002/api/update/${this.props.match.params.id}`, newProduct)
                 
                 .then(result => {
                     console.log(result.data)
@@ -150,7 +167,7 @@ class Form extends Component {
                         currentID: null,
                         editing: false
                     })
-                    this.props.reload();
+                    
                 })
                 .catch(err => console.warn(err))
             }

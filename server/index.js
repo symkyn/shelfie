@@ -45,6 +45,18 @@ app.get('/api/inventory', (req, res, next) => {
         
 });
 
+app.get('/api/edit/:id', (req, res, next) => {
+    const gameID = { id } = req.params;
+    console.log(gameID.id)
+    req.db.Iventory.find(+id)
+        .then(result => {
+            console.log(result)
+            res.status(200).send(result);
+        })
+        .catch(err => console.warn(err))
+        
+});
+
 app.post('/api/product', (req, res, next) => {
     const newProduct = req.body;
     req.db.Iventory.insert(newProduct)

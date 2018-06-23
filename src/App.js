@@ -63,7 +63,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Dashboard} />
             <Route path='/add' component={Form} />
-            <Route path='/edit' component={Form} />
+            <Route path='/edit/:id' component={Form} />
           </Switch>
           {/* <Dashboard 
               className='dashboard-display'
