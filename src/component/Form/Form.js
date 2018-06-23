@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Form.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Form extends Component {
     constructor(props) {
@@ -147,7 +147,7 @@ componentWillMount(){
                     name: '',
                     price: 0
                 })
-               
+                this.props.history.push('/')
             })
             .catch(err => console.warn(err))
         }
@@ -167,7 +167,7 @@ componentWillMount(){
                         currentID: null,
                         editing: false
                     })
-                    
+                    this.props.history.push('/')
                 })
                 .catch(err => console.warn(err))
             }
