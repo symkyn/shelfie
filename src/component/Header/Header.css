@@ -4,6 +4,11 @@
     width: 100%
 }
 
-.nav-buttons{
+.nav-span{
     display: flex;
+    margin: 5px;
+}
+
+.nav-buttons {
+    margin: 2px;
 }

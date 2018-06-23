@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Form.css';
-import { Link, Redirect } from 'react-router-dom';
+
 
 class Form extends Component {
     constructor(props) {
@@ -81,8 +81,10 @@ componentWillMount(){
                 }
 
                 { (this.state.editing) &&
+                
                 <form onSubmit={(e, imageurl, name, price) => 
                         this.handleUpdate(e, newProduct)}>
+                    <img className='image' src={this.state.imageurl} />
                     <p>Image URL:</p>
                     <input 
                             value={this.state.imageurl}

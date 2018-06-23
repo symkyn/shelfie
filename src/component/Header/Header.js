@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 function Header(){
     return(
         <div className='header'>
-            Shelfie
-            <span className='nav-buttons'>
-                <Link to='/'><button>home</button></Link>
-                <Link to='/add'><button>add product</button></Link>
+            <h1>Shelfie</h1>
+            <span className='nav-span'>
+                <Link to='/'><button className='nav-buttons'>home</button></Link>
+                <Link to='/add'><button className='nav-buttons'>add product</button></Link>
             </span>
         </div>
     )

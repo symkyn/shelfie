@@ -15,8 +15,10 @@ function Product(props) {
             {props.product.price}
             </span>
             <br />
-            <Link to={`/edit/${props.product.id}`}><button >edit</button></Link>
-            <button onClick={(e) => 
+            <Link to={`/edit/${props.product.id}`}><button className='product-button'>edit</button></Link>
+            <button 
+                className='product-button'
+                onClick={(e) => 
                     {e.preventDefault(); props.deleteProduct(props.product.id)}}>delete</button>
         </div>
     )

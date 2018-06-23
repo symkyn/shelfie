@@ -7,8 +7,9 @@
     display: flex;
 }
 
-button {
+.product-button {
+    margin: 5px;
     height: 40px;
     width: 60px;
-    align-content: bottom;
+    justify-content: flex-end;
 }
