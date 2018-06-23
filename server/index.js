@@ -50,7 +50,6 @@ app.get('/api/edit/:id', (req, res, next) => {
     console.log(gameID.id)
     req.db.Iventory.find(+id)
         .then(result => {
-            console.log(result)
             res.status(200).send(result);
         })
         .catch(err => console.warn(err))
