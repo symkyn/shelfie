@@ -1,0 +1,11 @@
+.form {
+    background-color: #3AD886;
+    height: 500px;
+    width: 300px;
+    margin: 20px;
+    display: right;  
+}
+
+.form-button {
+    width: 80px;
+}

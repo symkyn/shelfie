@@ -1,0 +1,9 @@
+.header {
+    background-color: #AB2A19;
+    height: 100px;
+    width: 100%
+}
+
+.nav-buttons{
+    display: flex;
+}

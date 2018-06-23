@@ -1,24 +1,53 @@
 import React, { Component } from 'react';
 import Product from '../Product/Product';
 import axios from 'axios';
+import './Dashboard.css';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props)
 
+    this.state={
+        inventory: []
     }
+}
+
+componentWillMount() {
+    axios.get('http://localhost:4002/api/inventory')
+      .then(results => {
+        this.setState({
+          inventory: results.data
+        })
+      })
+      .catch(err => console.warn(err))
+  }
+
+//   updateSelection(id) {
+//         this.setState({
+//           selectedID: id
+//         })
+//         const inventoryList = this.state.inventory;
+//         const listLength = this.state.inventory.length;
+//         for(var index = 0; index < listLength; index++){
+//           if(id == inventoryList[index].id){
+//             this.setState({
+//               inventoryID: index
+//             })
+//           }
+//         }
+//       }
 
     render() {
-        const inventorySummary = this.props.inventory.map((c, i) => 
-            (<Product 
+        const inventorySummary = this.state.inventory.map((c, i) => 
+        {   
+            return(<Product 
                     deleteProduct = {(id) => {this.deleteProduct(id)}}
-                    updateSelection={(id) => {this.props.updateSelection(id)}}
                     key={`product-${i}`} 
-                    product={c} />))
+                    product={c} />)
+        })
 
         return (
-        <div>
-            
+        <div className='dashboard'>
             {inventorySummary}
         </div>
         )

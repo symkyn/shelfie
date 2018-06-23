@@ -1,7 +1,9 @@
 import React from 'react';
+import './Product.css';
+import { Link } from 'react-router-dom';
 
 function Product(props) {
-    const {id} = props.product.id;
+    // const {id} = props.product.id;
     
     return(
         <div className='product-summary'>
@@ -9,10 +11,11 @@ function Product(props) {
             <img src={props.product.imageurl} />
             <br />
             {props.product.name}
+            <br />
             {props.product.price}
             </span>
             <br />
-            <button onClick={(e) => {e.preventDefault(); props.updateSelection(props.product.id)}}>edit</button>
+            <Link to={`/edit/${props.product.id}`}><button >edit</button></Link>
             <button onClick={(e) => 
                     {e.preventDefault(); props.deleteProduct(props.product.id)}}>delete</button>
         </div>

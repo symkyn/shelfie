@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './Form.css';
+import { Link } from 'react-router-dom';
 
 class Form extends Component {
     constructor(props) {
@@ -32,10 +34,10 @@ class Form extends Component {
         let newProduct = {imageurl, name, price};
        
         return(
-            <div>
+            <div className='form'>
                 { (!this.state.editing) &&
                 <form onSubmit={(e, imageurl, name, price) => 
-                        this.handleSubmit(e, newProduct, this.props.reload())}>
+                        this.handleSubmit(e, newProduct)}>
                     <p>Image URL:</p>
                     <input 
                             value={this.state.imageurl}
@@ -52,7 +54,13 @@ class Form extends Component {
                             onChange={(e) => this.handlePriceChange(e)} 
                         />
                     <br />
-                    <button>Add Inventory</button>
+                    
+                        <button 
+                                className='form-button'
+                                type='submit'>
+                            Add Inventory
+                        </button>
+                    
                 </form>
                 }
 
@@ -75,10 +83,14 @@ class Form extends Component {
                             onChange={(e) => this.handlePriceChange(e)} 
                         />
                     <br />
-                    <button>Update</button>
+                    <button className='form-button'>Update</button>
                 </form>
                 }
-                <button onClick={() => this.handleCancel()}>Cancel</button>
+                <button 
+                        className='form-button'
+                        onClick={() => this.handleCancel()}>
+                        Cancel
+                </button>
             </div>
         )
     }
@@ -106,7 +118,7 @@ class Form extends Component {
             editing: false
         })
     }
-    handleSubmit(e, newProduct, reload) {
+    handleSubmit(e, newProduct) {
         e.preventDefault();
         console.log(newProduct);
         axios.post('http://localhost:4002/api/product', newProduct)
@@ -118,7 +130,7 @@ class Form extends Component {
                     name: '',
                     price: 0
                 })
-                this.props.reload();
+               
             })
             .catch(err => console.warn(err))
         }

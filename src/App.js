@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import { Switch, Route } from 'react-router-dom';
 
 import Dashboard from './component/Dashboard/Dashboard';
 import Form from './component/Form/Form';
@@ -11,48 +11,48 @@ class App extends Component {
     super()
 
     this.state={
-        inventoryID: 0,
-        inventory: [],
-        selectedID: 0
+        // inventoryID: 0,
+        // inventory: [],
+        // selectedID: 0
     //   inventory: [{name: 'Brass', price: 40.45, imageURL: 'https://cf.geekdo-images.com/small/img/bY3T4SYX6lAhtfkUGJkC1laqnVw=/fit-in/200x150/pic3469216.jpg'},
     //               {name: 'Lignum', price: 30.87, imageURL: 'https://cf.geekdo-images.com/small/img/0yWec5sB_Qxpiuk8rDDWge03A4Y=/fit-in/200x150/pic2435028.jpg'}]
     // }
     }
   }
 
-  componentWillMount() {
-    axios.get('http://localhost:4002/api/inventory')
-      .then(results => {
-        this.setState({
-          inventory: results.data
-        })
-      })
-      .catch(err => console.warn(err))
-  }
+  // componentWillMount() {
+  //   axios.get('http://localhost:4002/api/inventory')
+  //     .then(results => {
+  //       this.setState({
+  //         inventory: results.data
+  //       })
+  //     })
+  //     .catch(err => console.warn(err))
+  // }
 
-  reload(){
-  axios.get('http://localhost:4002/api/inventory')
-      .then(results => {
-        this.setState({
-          inventory: results.data
-        })
-      })
-      .catch(err => console.warn(err))
-}
-  updateSelection(id) {
-    this.setState({
-      selectedID: id
-    })
-    const inventoryList = this.state.inventory;
-    const listLength = this.state.inventory.length;
-    for(var index = 0; index < listLength; index++){
-      if(id == inventoryList[index].id){
-        this.setState({
-          inventoryID: index
-        })
-      }
-    }
-  }
+//   reload(){
+//   axios.get('http://localhost:4002/api/inventory')
+//       .then(results => {
+//         this.setState({
+//           inventory: results.data
+//         })
+//       })
+//       .catch(err => console.warn(err))
+// }
+//   updateSelection(id) {
+//     this.setState({
+//       selectedID: id
+//     })
+//     const inventoryList = this.state.inventory;
+//     const listLength = this.state.inventory.length;
+//     for(var index = 0; index < listLength; index++){
+//       if(id == inventoryList[index].id){
+//         this.setState({
+//           inventoryID: index
+//         })
+//       }
+//     }
+//   }
   
   render() {
     
@@ -60,7 +60,12 @@ class App extends Component {
       <div className="App">
         <Header />
         <span className='parallel-display'>
-          <Dashboard 
+          <Switch>
+            <Route exact path='/' component={Dashboard} />
+            <Route path='/add' component={Form} />
+            <Route path='/edit' component={Form} />
+          </Switch>
+          {/* <Dashboard 
               className='dashboard-display'
               reload={() => this.reload()}
               inventory={this.state.inventory}
@@ -71,7 +76,7 @@ class App extends Component {
               reload={() => this.reload()}
               id={this.state.selectedID}
               selectedProduct={this.state.inventory[this.state.inventoryID]}
-            />
+            /> */}
         </span>
       </div>
     );
