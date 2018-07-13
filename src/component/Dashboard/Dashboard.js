@@ -10,10 +10,11 @@ class Dashboard extends Component {
     this.state={
         inventory: []
     }
+
 }
 
 componentWillMount() {
-    axios.get('http://localhost:4002/api/inventory')
+    axios.get('/api/inventory')
       .then(results => {
         this.setState({
           inventory: results.data
@@ -41,7 +42,7 @@ componentWillMount() {
         const inventorySummary = this.state.inventory.map((c, i) => 
         {   
             return(<Product 
-                    deleteProduct = {(id) => {this.deleteProduct(id)}}
+                    deleteProduct = {(id) => this.deleteProduct(id)}
                     key={`product-${i}`} 
                     product={c} />)
         })
@@ -55,7 +56,7 @@ componentWillMount() {
     
     deleteProduct(id) { 
         
-        axios.delete(`http://localhost:4002/api/delete/${id}`)
+        axios.delete(`/api/delete/${id}`)
             .then(() => this.props.reload())
             .catch(err => console.warn(err))
     } 

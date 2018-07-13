@@ -1,7 +1,7 @@
 // const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+
 const controller = require('./controller');
 const massive = require('massive');
 
@@ -18,9 +18,9 @@ massive(process.env.DB_CONNECTION_STRING)
         console.log('DB Connected');
         db = dbInstance;
     })
-    .catch(err => console.warn(err))
+    .catch(err => console.warn(err));
 
-app.use(cors());
+
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../build'));
 
@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/inventory', (req, res, next) => {
+    
     req.db.get()
         .then(result => {
             res.status(200).send(result);
@@ -64,7 +65,7 @@ app.post('/api/product', (req, res, next) => {
             console.warn(err); 
             next({message: 'internal server error' })
         })
-    console.log(newProduct);
+    
 })
 
 app.delete('/api/delete/:id', (req, res, next) => {

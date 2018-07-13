@@ -4,7 +4,7 @@ INSERT INTO "Iventory" (
     price
 )
 VALUES (
-    ${imageURL},
-    ${productName},
-    ${price}
+    imageURL,
+    productName,
+    price
 )

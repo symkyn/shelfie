@@ -14,6 +14,10 @@ class Form extends Component {
             currentID: null,
             editing: false
         }
+
+        this.handlePNChange = this.handlePNChange.bind(this);
+        this.handleURLChange = this.handleURLChange.bind(this);
+        this.handlePriceChange = this.handlePriceChange.bind(this);
     }
 
 componentWillMount(){
@@ -57,17 +61,17 @@ componentWillMount(){
                     <p>Image URL:</p>
                     <input 
                             value={this.state.imageurl}
-                            onChange={(e) => this.handleURLChange(e)} 
+                            onChange={this.handleURLChange} 
                         />
                     <p>Product Name:</p>
                     <input 
                             value={this.state.name}
-                            onChange={(e) => this.handlePNChange(e)} 
+                            onChange={this.handlePNChange} 
                         />
                     <p>Price:</p>
                     <input 
                             value={this.state.price}
-                            onChange={(e) => this.handlePriceChange(e)} 
+                            onChange={this.handlePriceChange} 
                         />
                     <br />
                     
@@ -140,7 +144,7 @@ componentWillMount(){
     handleSubmit(e, newProduct) {
         e.preventDefault();
         console.log(newProduct);
-        axios.post('http://localhost:4002/api/product', newProduct)
+        axios.post('/api/product', newProduct)
             .then(result => {
                 console.log(result.data)
                 
@@ -157,7 +161,7 @@ componentWillMount(){
         handleUpdate(e, newProduct) {
             e.preventDefault();
             console.log(newProduct);
-            axios.patch(`http://localhost:4002/api/update/${this.props.match.params.id}`, newProduct)
+            axios.patch(`/api/update/${this.props.match.params.id}`, newProduct)
                 
                 .then(result => {
                     console.log(result.data)
